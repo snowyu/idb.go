@@ -5,7 +5,7 @@ import (
     "xattr"
 )
 
-  func GetXattrKeys(aFile string) ([]string, error) {
+  func ListXattr(aFile string) ([]string, error) {
       keys, err := xattr.Listxattr(aFile)
       var result []string
       if err == nil {

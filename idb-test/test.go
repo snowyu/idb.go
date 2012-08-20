@@ -40,7 +40,7 @@ func main() {
         }
         default:
             for _, file := range flag.Args() {
-                    names, _ := iDB.GetXattrKeys(file)
+                    names, _ := iDB.ListXattr(file)
                     fmt.Println("file:",file)
                     for _, name := range names {
                             if *long {
