@@ -1,7 +1,8 @@
 package iDB
 
 import (
-    //"os"
+    "os"
+    "syscall"
     "xattr"
 )
 
@@ -33,5 +34,19 @@ import (
 
   func DeleteXattr(aFile, aKey string) error {
       return xattr.Removexattr(aFile, XattrPrefix+aKey)
+  }
+
+  //check File or Dir is exists
+  func FileIsExists(aFile string) (bool, error) {
+      _, err := os.Stat(aFile)
+      result := err == nil
+      if !result {
+        e, ok := err.(*os.PathError)
+        // Check if error is "no such file or directory"
+        if ok && e.Err == syscall.ENOENT {
+            err = nil
+        }
+      }
+      return result, err
   }
 
